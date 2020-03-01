@@ -5,6 +5,14 @@ import telebot
 owm = pyowm.OWM('bc48aa759c9c8cc16f9a2ac2164aad2c', language="ru")
 bot = telebot.TeleBot("1119552349:AAEqwr_F3TV76UXuxp3IYiXml_0O_FtdmGo")
 
+@bot.massage_handler(commands=['start'])
+def welcome(message):
+    sti = open('static/sticker.webp', "rb")
+    bot.send_sticker(message.chat.id, sti)
+
+    bot.send_message(message.chat.id, "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>, тестовый погода бот !".format(message.from_user, bot.get_me()),
+        parse_mode='html')
+
 @bot.message_handler(content_types=["text"])
 def send_echo(message):
     observation = owm.weather_at_place(message.text)
