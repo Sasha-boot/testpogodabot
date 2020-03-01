@@ -5,8 +5,8 @@ import telebot
 owm = pyowm.OWM('bc48aa759c9c8cc16f9a2ac2164aad2c', language="ru")
 bot = telebot.TeleBot("1119552349:AAEqwr_F3TV76UXuxp3IYiXml_0O_FtdmGo")
 
-@bot.massage_handler(commands=['/start'])
-def welcome(message):
+@bot.message_handler(commands=['start'])
+def start_message(message): 
     sti = open('static/sticker.webp', "rb")
     bot.send_sticker(message.chat.id, sti)
 
@@ -26,15 +26,15 @@ def send_echo(message):
 
 # Рекомендации
     if temp < 5:
-	    answer += "\n\nНа улице очень холодно , 'в халупе сиди, листком подтирайся :D' "
+        answer += "\n\nНа улице очень холодно , 'в халупе сиди, листком подтирайся :D' "
     elif temp > 20:
-	    answer += "\n\nНА УЛИЦЕ ЖАРА! ГУЛЯЕМ МАЛЬЧИКИ , ВЕСНА !"
+        answer += "\n\nНА УЛИЦЕ ЖАРА! ГУЛЯЕМ МАЛЬЧИКИ , ВЕСНА !"
     elif temp > 5:
-	    answer += "\n\nНа рассвете тёплый восточный ветер пригонит к нам тёплое солнышко, которое пролетит над всем городом и вечером улетит на запад…"
+        answer += "\n\nНа рассвете тёплый восточный ветер пригонит к нам тёплое солнышко, которое пролетит над всем городом и вечером улетит на запад…"
     elif temp > 30: 
-	    answer += "\n\nсолнышко рядом"
+        answer += "\n\nсолнышко рядом"
     else:
-	    print("\n\nМогу поздравть тебя ! ты не умеешь писать !")
+        print("\n\nМогу поздравть тебя ! ты не умеешь писать !")
 
     bot.send_message(message.chat.id, answer)
 
