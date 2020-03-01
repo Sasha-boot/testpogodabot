@@ -5,7 +5,7 @@ import telebot
 owm = pyowm.OWM('bc48aa759c9c8cc16f9a2ac2164aad2c', language="ru")
 bot = telebot.TeleBot("1119552349:AAEqwr_F3TV76UXuxp3IYiXml_0O_FtdmGo")
 
-@bot.massage_handler(commands=['start'])
+@bot.massage_handler(commands=['/start'])
 def welcome(message):
     sti = open('static/sticker.webp', "rb")
     bot.send_sticker(message.chat.id, sti)
