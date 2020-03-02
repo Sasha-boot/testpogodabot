@@ -6,8 +6,8 @@ owm = pyowm.OWM('bc48aa759c9c8cc16f9a2ac2164aad2c', language="ru")
 bot = telebot.TeleBot("1119552349:AAEqwr_F3TV76UXuxp3IYiXml_0O_FtdmGo")
 
 @bot.message_handler(commands=['start'])
-def start_message(message): 
-    sti = open('static/sticker.webp', "rb")
+def start_message(message):
+    sti = open('sticker.webp', "rb")
     bot.send_sticker(message.chat.id, sti)
 
     bot.send_message(message.chat.id, "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>, тестовый погода бот !".format(message.from_user, bot.get_me()),
