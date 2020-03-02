@@ -13,37 +13,43 @@ def start_message(message):
     bot.send_message(message.chat.id, "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>, тестовый погода бот !".format(message.from_user, bot.get_me()),
         parse_mode='html')
 
+
+@bot.message_handler(content_types=["sticker", "pinned_message", "photo", "audio"])
+def send_message(message):
+   
+    reply = "Круть!\nЕсли ты хочешь узнать погоду, пиши название своего города!"
+
+    bot.send_message(message.chat.id, reply)
+
+
 @bot.message_handler(content_types=["text"])
 def send_echo(message):
-    observation = owm.weather_at_place(message.text)
-    w = observation.get_weather()
-    detail = w.get_detailed_status()
-    temp = w.get_temperature('celsius')["temp"]
-    hum = w.get_humidity()
-    speed = w.get_wind()["speed"]
+    try:
+        observation = owm.weather_at_place(message.text)
+        w = observation.get_weather()
+        detail = w.get_detailed_status()
+        temp = w.get_temperature('celsius')["temp"]
+        hum = w.get_humidity()
+        speed = w.get_wind()["speed"]        
 
-    answer = "В городе "+message.text+" сейчас "+str(detail)+" \nТемпература: "+str(temp)+" °С \nВлажность: "+str(hum)+" % \nСкорость ветра: "+str(speed)+" м/с"
+        answer = "В городе "+message.text+" сейчас "+str(detail)+" \nТемпература: "+str(temp)+" °С \nВлажность: "+str(hum)+" % \nСкорость ветра: "+str(speed)+" м/с"
     
-    @bot.message_handler(content_types=['text'])
-def handle_text(message):
-     bot.send_message(message.chat.id, constants.otmazka)
 
-     otmazki = ["Я вас не понимат !"]
 
-otmazka = (otmazki)
+        if temp < 5:
+            answer += "\n\nНа улице очень холодно , 'в халупе сиди, листком подтирайся :D' "
+        elif temp > 20:
+            answer += "\n\nНА УЛИЦЕ ЖАРА! ГУЛЯЕМ МАЛЬЧИКИ , ВЕСНА !"
+        elif temp > 5:
+            answer += "\n\nНа рассвете тёплый восточный ветер пригонит к нам тёплое солнышко, которое пролетит над всем городом и вечером улетит на запад…"
+        elif temp > 30: 
+            answer += "\n\nсолнышко рядом"
     
-# Рекомендации
-    if temp < 5:
-        answer += "\n\nНа улице очень холодно , 'в халупе сиди, листком подтирайся :D' "
-    elif temp > 20:
-        answer += "\n\nНА УЛИЦЕ ЖАРА! ГУЛЯЕМ МАЛЬЧИКИ , ВЕСНА !"
-    elif temp > 5:
-        answer += "\n\nНа рассвете тёплый восточный ветер пригонит к нам тёплое солнышко, которое пролетит над всем городом и вечером улетит на запад…"
-    elif temp > 30: 
-        answer += "\n\nсолнышко рядом"
-    else:
-        answer +="\n\nМогу поздравть тебя ! ты не умеешь писать !"
+        bot.send_message(message.chat.id, answer)     
+    except:
+        bot.send_message(message.chat.id,'Ошибка! Город не найден.')
 
-    bot.send_message(message.chat.id, answer)
+
+
 
 bot.polling(none_stop=True)
