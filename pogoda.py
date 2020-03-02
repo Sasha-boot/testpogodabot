@@ -33,8 +33,8 @@ def send_echo(message):
         answer += "\n\nНа рассвете тёплый восточный ветер пригонит к нам тёплое солнышко, которое пролетит над всем городом и вечером улетит на запад…"
     elif temp > 30: 
         answer += "\n\nсолнышко рядом"
-    else:
-        print("\n\nМогу поздравть тебя ! ты не умеешь писать !")
+    else message.text:
+        answer +="\n\nМогу поздравть тебя ! ты не умеешь писать !"
 
     bot.send_message(message.chat.id, answer)
 
