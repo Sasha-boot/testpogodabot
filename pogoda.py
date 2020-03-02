@@ -24,9 +24,13 @@ def send_echo(message):
 
     answer = "В городе "+message.text+" сейчас "+str(detail)+" \nТемпература: "+str(temp)+" °С \nВлажность: "+str(hum)+" % \nСкорость ветра: "+str(speed)+" м/с"
     
-@bot.message_handler (content_types=["text"])
-def handler_message(message):
-     bot.send_message (message.chat.id, 'Добрый день я бот...')
+    @bot.message_handler(content_types=['text'])
+def handle_text(message):
+     bot.send_message(message.chat.id, constants.otmazka)
+
+     otmazki = ["Я вас не понимат !"]
+
+otmazka = (otmazki)
     
 # Рекомендации
     if temp < 5:
