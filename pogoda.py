@@ -23,13 +23,10 @@ def send_echo(message):
     speed = w.get_wind()["speed"]
 
     answer = "В городе "+message.text+" сейчас "+str(detail)+" \nТемпература: "+str(temp)+" °С \nВлажность: "+str(hum)+" % \nСкорость ветра: "+str(speed)+" м/с"
-
-    @bot.message_handler(content_types=["text"])
-def send_echo(message):
-    observation = owm.weather_at_place(message.text)
-    w = observation.get_weather()
     
-    answer = "Что значит"+message.text+" чтобы узнать ПРОГНОЗ погоды , \n Напиши название города , типо 'Москва' "
+@bot.message_handler (content_types=["text"])
+def handler_message(message):
+     bot.send_message (message.chat.id, 'Добрый день я бот...')
     
 # Рекомендации
     if temp < 5:
