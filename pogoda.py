@@ -24,12 +24,6 @@ def send_echo(message):
 
     answer = "В городе "+message.text+" сейчас "+str(detail)+" \nТемпература: "+str(temp)+" °С \nВлажность: "+str(hum)+" % \nСкорость ветра: "+str(speed)+" м/с"
 
-@bot.message_handler(content_types=["text"])
-def message_text(message):
-    observation = owm.weather_at_place(message.text)
-
-    answer = "Что значит"+message.text+" чтобы узнать ПРОГНОЗ погоды , \n Напиши название города , типо 'Москва' "
-
 # Рекомендации
     if temp < 5:
         answer += "\n\nНа улице очень холодно , 'в халупе сиди, листком подтирайся :D' "
