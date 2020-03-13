@@ -48,7 +48,7 @@ def send_echo(message):
             	
         bot.send_message(message.chat.id, answer)
     except:
-        bot.send_message(message.chat.id, "Город не найден ! ")
+        bot.send_message(message.chat.id, "ПОШЕЛ НА ХУЙ !! ")
 
     	
 bot.polling(none_stop=True)
