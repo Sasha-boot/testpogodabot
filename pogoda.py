@@ -51,4 +51,4 @@ def send_echo(message):
         bot.send_message(message.chat.id, "Город не найден ! ")
 
     	
-bot.polling(none_stop=True)
+
