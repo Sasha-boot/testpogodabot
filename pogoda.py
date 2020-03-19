@@ -2,6 +2,8 @@
 import pyowm
 import telebot
 
+from telebot import types
+
 bot = telebot.TeleBot("1119552349:AAEqwr_F3TV76UXuxp3IYiXml_0O_FtdmGo")
 owm = pyowm.OWM('bc48aa759c9c8cc16f9a2ac2164aad2c', language ="ru")
 
@@ -10,17 +12,24 @@ owm = pyowm.OWM('bc48aa759c9c8cc16f9a2ac2164aad2c', language ="ru")
 def start_message(message):
     sti = open('stabc/sticker.webp', 'rb')
     bot.send_sticker(message.chat.id, sti)
+ 
+    
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    item1 = types.KeyboardButton("🏙 Узнать прогноз погоды ")
+    
+ 
+    markup.add(item1,)
 
     bot.send_message(message.chat.id, "Приветствую тебя {0.first_name}!\nЯ - <b>{1.first_name}</b>, погода бот !\n\nЧтобы узнать погоду в твоем городе\nПросто пиши его название\nПример - 'Москва' ".format(message.from_user, bot.get_me()),
-        parse_mode='html')
-
+        parse_mode='html', reply_markup=markup)
+ 
 
 @bot.message_handler(content_types=["sticker", "pinned_message", "photo", "audio"])
 def send_message(message):
    
     reply = "Класс"  
 
-    bot.send_message(message.chat.id, reply)	
+    bot.send_message(message.chat.id, reply)    
 
 
 @bot.message_handler(content_types=["text"])
@@ -38,17 +47,33 @@ def send_echo(message):
 
         if temp < 0:
             answer +="На улице очень холодно! Сиди лучше дома."
+        elif temp < 5:
+            answer +="Да не так холодно,можно гулять"
+        elif temp < 10:
+            answer +="Ну тут какой-то мороз,лучше посидеть дома"
+        elif temp < 15:
+            answer +="Брр... не лучше дома"
+        elif temp < 20:
+            answer +="Не выходи вообще"
+        elif temp < 25:
+            answer +="тут и замерзнуть можно вообще"
         elif temp > 5:
             answer +="На улице прохладно. Оденься по теплее и вперед !!"
+        elif temp > 10:
+            answer +="Солнышко светит! Можно и прогуляться)"
         elif temp > 15:
-            answer +="На улице тепло, одевай кофту и гуляй !!!"
+            answer +="Офигенно,можно отдохнуть)"
         elif temp > 20:
+            answer +="Жара прям "
+        elif temp > 25:
             answer +="НА УЛИЦЕ ЖАРА ! ГУЛЯЕМ МАЛЬЧИКИ ВЕСНА !!!! "
 
-            	
+                
         bot.send_message(message.chat.id, answer)
     except:
-        bot.send_message(message.chat.id, "Город не найден ! ")
+        if message.chat.type == 'private':
+            if message.text == '🏙 Узнать прогноз погоды':
+                bot.send_message(message.chat.id, 'Введите город')
 
-    	
-
+                
+bot.polling(none_stop=True)
