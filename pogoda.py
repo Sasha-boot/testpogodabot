@@ -4,7 +4,7 @@ import telebot
 
 from telebot import types
 
-bot = telebot.TeleBot("1119552349:AAEqwr_F3TV76UXuxp3IYiXml_0O_FtdmGo")
+bot = telebot.TeleBot("1109671417:AAHPUpsg0sixLTgQyedhBURbQ11-jyYfGNM")
 owm = pyowm.OWM('bc48aa759c9c8cc16f9a2ac2164aad2c', language ="ru")
 
 
