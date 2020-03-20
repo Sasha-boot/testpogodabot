@@ -76,4 +76,4 @@ def send_echo(message):
                 bot.send_message(message.chat.id, 'Введите город')
 
                 
-bot.polling(none_stop=True)
+
