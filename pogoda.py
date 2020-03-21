@@ -121,4 +121,4 @@ def callback_inline(call):
 
 
 
-bot.polling(none_stop=True)
+
