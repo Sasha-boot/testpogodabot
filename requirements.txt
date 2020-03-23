@@ -1,0 +1,4 @@
+pyTelegramBotAPI==3.6.7
+pyowm==2.10.0
+DateTime==4.3
+pandas==1.0.3
