@@ -9,7 +9,7 @@ bot = telebot.TeleBot("1109671417:AAHPUpsg0sixLTgQyedhBURbQ11-jyYfGNM")
 owm = pyowm.OWM('bc48aa759c9c8cc16f9a2ac2164aad2c', language ="ru")
 
 
-joinedFile = open("C:/python/joined.txt", "r")
+joinedFile = open("/joined.txt", "r")
 joinedUsers = set ()
 for line in joinedFile:
     joinedUsers.add(line.strip())
@@ -19,7 +19,7 @@ joinedFile.close()
 @bot.message_handler(commands=['start'])
 def start_message(message):    
     if not str(message.chat.id) in joinedUsers:
-        joinedFile = open("C:/python/joined.txt", "a")
+        joinedFile = open("/joined.txt", "a")
         joinedFile.write(str(message.chat.id) + "\n")
         joinedUsers.add(message.chat.id)
 
